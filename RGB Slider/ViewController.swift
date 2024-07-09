@@ -8,7 +8,7 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    
+//    MARK: - IB Outlets
     @IBOutlet weak var redColorLabel: UILabel!
     @IBOutlet weak var greenColorLabel: UILabel!
     @IBOutlet weak var blueColorLabel: UILabel!
@@ -19,6 +19,7 @@ final class ViewController: UIViewController {
    
     @IBOutlet weak var rgbColorView: UIView!
     
+    // MARK: - Private Properties
     private var redColorValue: CGFloat {
         CGFloat(redSlider.value)
     }
@@ -31,17 +32,24 @@ final class ViewController: UIViewController {
         CGFloat(blueSlider.value)
     }
 
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        rgbColorView.layer.borderWidth = 2.0
-        rgbColorView.layer.borderColor = UIColor.white.cgColor
+        
         rgbColorView.layer.cornerRadius = 10
+        
+        applyRgbColorToTheView(
+            withColors: redColorValue,
+            green: greenColorValue,
+            blue: blueColorValue
+        )
     }
 
+    //MARK: - IB Actions
     @IBAction func redSliderAction() {
         redColorLabel.text = String(format: "%.2f", redSlider.value)
-        getRgbColor(
-            with: redColorValue,
+        applyRgbColorToTheView(
+            withColors: redColorValue,
             green: greenColorValue,
             blue: blueColorValue
         )
@@ -49,8 +57,8 @@ final class ViewController: UIViewController {
     
     @IBAction func greenSliderAction() {
         greenColorLabel.text = String(format: "%.2f", greenSlider.value)
-        getRgbColor(
-            with: redColorValue,
+        applyRgbColorToTheView(
+            withColors: redColorValue,
             green: greenColorValue,
             blue: blueColorValue
         )
@@ -58,15 +66,19 @@ final class ViewController: UIViewController {
     
     @IBAction func blueSliderAction() {
         blueColorLabel.text = String(format: "%.2f", blueSlider.value)
-        getRgbColor(
-            with: redColorValue,
+        applyRgbColorToTheView(
+            withColors: redColorValue,
             green: greenColorValue,
             blue: blueColorValue
         )
     }
     
-    
-    private func getRgbColor(with red: CGFloat, green: CGFloat, blue: CGFloat) {
+    // MARK: - Private Methods
+    private func applyRgbColorToTheView(
+        withColors red: CGFloat,
+        green: CGFloat,
+        blue: CGFloat
+    ) {
         rgbColorView.backgroundColor = UIColor(
             red: red,
             green: green,
